@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { data } from "../restApi.json";
 import { Link } from "react-scroll";
 import { GiHamburgerMenu } from "react-icons/gi";
-
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const openNewPage = () => {
