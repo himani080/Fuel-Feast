@@ -1297,4 +1297,11 @@ footer .container .banner .right {
   }
 }
 
+.dishes_container .card button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f39c12;
+  color: #fff;
+  font-size: 16px;
+}
 /**********************************************************************************************************************/
