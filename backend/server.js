@@ -17,43 +17,29 @@ app.use(cors({
   credentials: true,
 }));
 
-// Stripe Checkout Session Route
-app.post('/api/create-checkout-session', async (req, res) => {
-  const { items } = req.body;
-
-  // Check for items structure
-  if (!items || !Array.isArray(items)) {
-    return res.status(400).json({ error: 'Invalid items format' });
-  }
-
-  // Map items to Stripe line item format
-  const lineItems = items.map((item) => ({
-    price_data: {
-      currency: 'inr',
-      product_data: {
-        name: item.title,
-      },
-      unit_amount: item.price * 100, // Stripe expects the price in smallest currency unit (e.g., cents)
-    },
-    quantity: item.quantity,
-  }));
-
+app.post('/create-checkout-session', async (req, res) => {
   try {
-    // Create a Stripe checkout session
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems,
-      mode: 'payment',
-      success_url: `${frontendUrl}/success`,
-      cancel_url: `${frontendUrl}/cart`,
-    });
-    res.json({ url: session.url });
+      const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items: req.body.items.map(item => ({
+              price_data: {
+                  currency: 'inr',
+                  product_data: { name: item.name },
+                  unit_amount: item.price * 100,
+              },
+              quantity: item.quantity,
+          })),
+          mode: 'payment',
+          success_url: `${process.env.FRONTEND_URL}/success`,
+          cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+      });
+
+      res.json({ id: session.id });
   } catch (error) {
-    console.error('Error creating Stripe session:', error);
-    res.status(500).json({ error: 'Something went wrong' });
+      console.error('Error creating Stripe checkout session:', error);
+      res.status(500).json({ error: 'Failed to create checkout session' });
   }
 });
-
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on backend URL: ${baseUrl}:${port}`);
