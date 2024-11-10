@@ -311,11 +311,11 @@
         <h3>Your Cart</h3>
         <div id="cart-items"></div>
         <p id="total-bill">Total: ₹0</p>
-        <button class="close-cart" onclick="toggleCartModal()">Close</button>
+        <button class="close-cart" onclick="handleCheckout()">Pay</button>
     </div>
     
     <!-- Add your JavaScript below -->
-    <script>
+    <!-- <script>
         let cart = {};
 
         function sanitizeId(name) {
@@ -373,6 +373,83 @@
             const cartModal = document.getElementById('cart-modal');
             cartModal.style.display = cartModal.style.display === 'none' || cartModal.style.display === '' ? 'block' : 'none';
         }
-    </script>
+    </script> -->
+    <script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('pk_test_51QIXBuIkVKAr96uPmkvBcgLA4i7SOVOxZyDKkRAnIknSwVpj02Xnot5e3vVkUZbtbI0QWDnTEcts8C3Xh6V0WD6100d9y0mZYs');
+    let cart = {};
+
+    function sanitizeId(name) {
+        return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    }
+
+    function changeQuantity(itemName, itemPrice, change) {
+        if (!cart[itemName]) {
+            cart[itemName] = { name: itemName, price: itemPrice, quantity: 0 };
+        }
+        cart[itemName].quantity += change;
+        if (cart[itemName].quantity < 0) {
+            cart[itemName].quantity = 0;
+        }
+        document.getElementById(`quantity-${sanitizeId(itemName)}`).textContent = cart[itemName].quantity;
+        updateCartCount();
+        updateCartModal();
+    }
+
+    function updateCartCount() {
+        const totalCount = Object.values(cart).reduce((acc, item) => acc + item.quantity, 0);
+        document.getElementById('cart-count').textContent = totalCount;
+    }
+
+    function updateCartModal() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
+        let totalBill = 0;
+
+        for (const itemName in cart) {
+            if (cart[itemName].quantity > 0) {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `<p>${cart[itemName].name} - Quantity: ${cart[itemName].quantity}</p><p>₹${cart[itemName].price * cart[itemName].quantity}</p>`;
+                cartItemsContainer.appendChild(cartItem);
+                totalBill += cart[itemName].price * cart[itemName].quantity;
+            }
+        }
+        document.getElementById('total-bill').textContent = `Total: ₹${totalBill}`;
+    }
+
+    function toggleCartModal() {
+        const cartModal = document.getElementById('cart-modal');
+        cartModal.style.display = cartModal.style.display === 'none' || cartModal.style.display === '' ? 'block' : 'none';
+    }
+
+    // Function to handle the checkout process with Stripe
+    async function handleCheckout() {
+        const items = Object.values(cart).filter(item => item.quantity > 0);
+        
+        if (items.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:4000/create-checkout-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: items })
+            });
+
+            const session = await response.json();
+            const result = await stripe.redirectToCheckout({ sessionId: session.id });
+            if (result.error) {
+                alert(result.error.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while processing the payment.');
+        }
+    }
+</script>
+
 </body>
 </html>

@@ -18,7 +18,7 @@ app.use(cors({
     allowedHeaders: "Content-Type,Authorization", // Specify allowed headers
 }));
 
-const genAI = new GoogleGenerativeAI("AIzaSyDc5OaIbBPsBLY2LlSuQvVbRiEGVMTBIYA");
+const genAI = new GoogleGenerativeAI(process.env.api_generative_ai);
 
 app.post('/generate', async (req, res) => {
     const prompt = req.body.prompt;
