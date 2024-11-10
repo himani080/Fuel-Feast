@@ -13,9 +13,6 @@ const HeroSection = () => {
             <h1 className="title">Power Your Plate</h1>
           </div>
           <div className="combined_boxes">
-            <div className="imageBox">
-              <img src="./food2.jpg" alt="hero" />
-            </div>
             <div className="textAndLogo">
               <div className="textWithSvg">
                 {/* <h1 className="title">Your</h1> */}
@@ -27,9 +24,6 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="banner">
-          <div className="imageBox">
-            <img src="food.jpeg" alt="hero" />
-          </div>
           <h1 className="title dishes_title"></h1>
         </div>
       </div>
