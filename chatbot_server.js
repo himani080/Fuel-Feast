@@ -35,6 +35,6 @@ app.post('/generate', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
+app.listen(CHATBOT_PORT, () => {
     console.log(`Server running at backend URL: http://localhost:${PORT}`);
 });
