@@ -7,12 +7,12 @@
     "start": "npm run start:frontend & npm run start:backend & npm run start:chatbot",
     "start:frontend": "cd frontend && npm run build && vite preview",
     "start:backend": "cd backend && npm start",
-    "start:chatbot": "cd chatbot && node chatbot_server.js",
+    "start:chatbot": "node chatbot_server.js",
     
     "dev": "npm run dev:frontend & npm run dev:backend & npm run dev:chatbot",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && nodemon server.js",
-    "dev:chatbot": "cd chatbot && node chatbot_server.js",
+    "dev:chatbot": "node chatbot_server.js",
     
     "build": "npm run build:frontend",
     "build:frontend": "cd frontend && npm run build"
