@@ -1,10 +1,47 @@
+
 {
+  "name": "full-stack-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run start:frontend & npm run start:backend & npm run start:chatbot",
+    "start:frontend": "cd frontend && npm run build && vite preview",
+    "start:backend": "cd backend && npm start",
+    "start:chatbot": "cd chatbot && node chatbot_server.js",
+    
+    "dev": "npm run dev:frontend & npm run dev:backend & npm run dev:chatbot",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && nodemon server.js",
+    "dev:chatbot": "cd chatbot && node chatbot_server.js",
+    
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.15.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "stripe": "^17.3.1"
+    "stripe": "^17.3.1",
+    "axios": "^1.7.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.24.1",
+    "react-scroll": "^1.9.0",
+    "react-icons": "^5.2.1",
+    "react-hot-toast": "^2.4.1",
+    "package.json": "^2.0.1",
+    "vite": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "nodemon": "^2.0.22"
   }
 }
