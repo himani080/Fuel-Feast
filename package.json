@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "npm run start:frontend & npm run start:backend & npm run start:chatbot",
-    "start:frontend": "cd frontend && npm run build && vite preview",
+    "start:frontend": "cd frontend && npm run build && serve dist",
     "start:backend": "cd backend && npm start",
     "start:chatbot": "node chatbot_server.js",
     
