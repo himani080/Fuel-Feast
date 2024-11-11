@@ -18,8 +18,8 @@
 nav {
   display: flex;
   max-width: 1500px;
-  min-width: 1500px;
-  padding: 1px 2px; /* Reduced padding */
+  min-width: 1707px;
+  /* padding: 5px 0px;  */
   margin-bottom: 20px;
   justify-content: space-between;
   position: relative;
@@ -28,6 +28,9 @@ nav {
   border-bottom-left-radius: 10px;
   padding-top: 0;
   margin-top: 0;
+  background: rgba(205, 204, 203, 0.235);
+  height: 100px;
+  
 }
 
 
@@ -39,15 +42,18 @@ nav::after {
   left: 0;
   width: 100%;
   background: rgb(180, 180, 180); /* Slightly darker color */
+  display: none;
 }
 
 nav .logo {
   flex: 1;
   display: flex;
   align-items: center;
-  font-size: 1.2rem; /* Increased font size */
+  font-size: 1.8rem; /* Increased font size */
   width: 60px; /* Adjusted width */
   height: 40px; /* Adjusted height */
+  color:#f7fafa;
+  font-weight: 500;
 }
 
 .heroSection .logo {
@@ -67,30 +73,35 @@ nav .navLinks {
 
 nav .navLinks .links {
   display: flex;
-  gap: 30px;
+  gap: 20px; /* Reduced gap for more compact links */
 }
 
 nav .navLinks .links a {
   text-decoration: none;
-  color: #444;
+  color: #101010;
+  
   font-size: 22px; /* Increased font size */
-  font-weight: 400; /* Slightly bolder font */
+  font-weight: 1000; /* Slightly bolder font */
   letter-spacing: 1.5px;
+  
+  
 }
 
 nav .navLinks .links a:hover {
-  color: #222;
+  color: #cccccc;
   transition: 0.3s;
   cursor: pointer;
 }
 
 nav .menuBtn {
   padding: 10px 25px; /* Increased padding for a larger button */
-  color: black;
+  color: rgb(249, 246, 246);
   background: transparent;
   border: 1.5px solid #333;
   border-radius: 25px;
   font-size: 18px; /* Larger font size */
+  color: #fff;
+  background: #222;
 }
 
 nav .menuBtn:hover {
@@ -191,9 +202,9 @@ nav .hamburger {
   display: flex;
   flex-direction: column;
   min-height: 80vh;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  background: url(/backChatbot.jpg);
+  background: url(/FF.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right;
@@ -203,6 +214,7 @@ nav .hamburger {
 .heroSection .container {
   display: flex;
   max-width: 2000px;
+  flex-direction: column;
   min-width: 1200px;
 }
 
@@ -222,8 +234,8 @@ nav .hamburger {
 }
 
 .heroSection .container .banner .title {
-  font-size: 8.5rem;
-  font-weight: 200;
+  font-size: 6rem;
+  font-weight: 500;
   text-align: center; /* Center align the text */
   margin: 0 auto; /* Center the title horizontally */
   margin-left: 110x;
@@ -233,8 +245,12 @@ nav .hamburger {
 
 
 .heroSection .container .banner .textAndLogo {
-  width: 50%;
-  text-align: center;
+  display: flex;
+  flex-direction: column; /* Stack text and logo vertically */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .heroSection .container .banner .textWithSvg {
